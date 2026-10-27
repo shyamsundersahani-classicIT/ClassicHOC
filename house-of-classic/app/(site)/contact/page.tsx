@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import EnquiryForm from "@/components/EnquiryForm";
-import { site } from "@/lib/site";
+import { pages, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact & Book",
@@ -15,7 +15,7 @@ export default function Contact() {
       <div className="mt-12 grid gap-12 lg:grid-cols-2">
         <div>
           <h2 className="font-serif text-2xl">Send an enquiry</h2>
-          <p className="mt-2 text-sm text-muted">We reply on WhatsApp, usually the same day.</p>
+          <p className="mt-2 text-sm text-muted">{pages.contact.replyNote}</p>
           <div data-reveal className="mt-6">
             <EnquiryForm />
           </div>

@@ -11,21 +11,15 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-## 2. Change business details
+## 2. Change content (text, rates, photos)
 
-Edit `lib/site.ts`:
+Use the admin page at `/admin`. See [HANDOVER.md](./HANDOVER.md), section 6, for setup (`ADMIN_PASSWORD`, plus `GITHUB_TOKEN` on the live site).
 
-- phone, WhatsApp number, email, address
-- `social` links (Facebook, Instagram, YouTube)
-- `nightlyRate`: leave empty to show "Ask for price", or fill it in
-- `splashPackages`: prices for the Splash & Relax packages
-- `geo`: latitude and longitude of the property (check on Google Maps)
-
-Policy text is in `data/legal.json`. It was copied from the old site. Have it reviewed before publishing.
+Developers can also edit `data/content.json` (business details, rates, page text, photo choices) and `data/legal.json` (policies) directly.
 
 ## 3. Add photos
 
-Drop `.webp` files into `public/images/`. The gallery picks them up automatically (except files starting with `logo`, `favicon`, `map`, `index`, `Menu`, `satkar`, `WhatsApp`). Keep files around 1600px wide to keep the site fast.
+Upload them on the admin page (Photos tab), or drop `.webp`/`.jpg`/`.png` files into `public/images/`. The gallery picks them up automatically (except files starting with `logo`, `favicon`, `map`, `index`, `Menu`, `satkar`, `WhatsApp`). Keep files around 1600px wide to keep the site fast.
 
 ## 4. Deploy (free, recommended: Vercel)
 
@@ -49,7 +43,7 @@ Drop `.webp` files into `public/images/`. The gallery picks them up automaticall
 
 ## 6. Before launch checklist
 
-- [ ] Fill in social links and nightly rate in `lib/site.ts`
+- [ ] Fill in social links on the admin page (Business details)
 - [ ] Confirm the map location is the correct property
 - [ ] Review the privacy and cancellation policies
 - [ ] Add real customer reviews (the old "Lorem ipsum" testimonial was removed)

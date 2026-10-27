@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { site } from "@/lib/site";
+import { pages } from "@/lib/site";
+import { photo } from "@/lib/image-path";
 
-const slides = [
-  { image: site.heroImage, caption: "The pool at House of Classic", position: "object-[center_65%] lg:object-[40%_center]" },
-  { image: "IMG_5709-1", caption: "The party garden", position: "object-[center_75%]" },
-  { image: "IMG_5667", caption: "A lounge for your get-togethers", position: "object-center" },
-  { image: "IMG_5619", caption: "The 17-seat cinema", position: "object-center" },
-];
+// "focus" is chosen in the admin page: which part of the photo stays visible when it's cropped.
+const focusClass: Record<string, string> = {
+  center: "object-center",
+  lower: "object-[center_65%] lg:object-[40%_center]",
+  bottom: "object-[center_75%]",
+  top: "object-top",
+};
+
+const slides = pages.home.slides.map((s) => ({ ...s, position: focusClass[s.focus] ?? focusClass.center }));
 
 const motionQuery = "(prefers-reduced-motion: reduce)";
 function subscribeToMotion(callback: () => void) {
@@ -38,7 +42,7 @@ export default function HeroSlideshow() {
       {slides.map((slide, index) => (
         <div key={slide.image} aria-hidden={index !== active} className={`absolute inset-0 transition-opacity duration-1000 ${index === active ? "opacity-100" : "opacity-0"}`}>
           <Image
-            src={`/images/${slide.image}.webp`}
+            src={photo(slide.image)}
             alt={slide.caption}
             fill
             preload={index === 0}

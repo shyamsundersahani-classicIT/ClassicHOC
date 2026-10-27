@@ -6,7 +6,6 @@ const routes = [
   "/gallery",
   "/amenities",
   "/splash-relax",
-  "/our-tie-ups",
   "/contact",
   "/rules-regulations",
   "/privacy-policy",

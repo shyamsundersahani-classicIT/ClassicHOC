@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { amenities } from "@/lib/site";
+import { amenities, pages } from "@/lib/site";
 import { photo } from "@/lib/photos";
 
 export const metadata: Metadata = {
@@ -13,12 +13,12 @@ export default function Amenities() {
   return (
     <>
       <section className="relative isolate flex min-h-[50vh] items-center justify-center overflow-hidden text-center text-cream grain">
-        <Image src={photo("ANK01934_1")} alt="Glass-roof swimming pool" fill priority sizes="100vw" className="-z-10 animate-kenburns object-cover" />
+        <Image src={photo(pages.amenities.heroImage)} alt="House of Classic" fill priority sizes="100vw" className="-z-10 animate-kenburns object-cover" />
         <div className="absolute inset-0 -z-10 bg-ink/65" />
         <div className="px-6">
           <p className="text-xs font-bold uppercase tracking-[0.35em] text-gold">House of Classic</p>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">Amenities</h1>
-          <p className="mx-auto mt-4 max-w-xl text-cream/85">Splash, relax and celebrate with everything you need under one roof.</p>
+          <p className="mx-auto mt-4 max-w-xl text-cream/85">{pages.amenities.heroText}</p>
         </div>
       </section>
 
@@ -45,8 +45,7 @@ export default function Amenities() {
 
       <section className="bg-night py-20 text-center text-cream">
         <p className="mx-auto max-w-2xl px-6 text-cream/85">
-          Also included: outdoor and indoor kitchens, living and dining halls, an outdoor glass lounge, a suite room with
-          steam and jacuzzi tub, and a rain dance area.
+          {pages.amenities.alsoIncluded}
         </p>
         <Link href="/contact" className="gold-shine mt-8 inline-block rounded-full px-8 py-4 font-bold text-ink">
           Check availability

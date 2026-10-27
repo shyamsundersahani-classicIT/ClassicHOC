@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, Playfair_Display } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollReveals from "@/components/ScrollReveals";
-import PreviewControls from "@/components/PreviewControls";
-import EffectsLayer from "@/components/EffectsLayer";
 import { site } from "@/lib/site";
+import { photo } from "@/lib/photos";
 import "./globals.css";
 
 // Applies a saved theme choice before the page paints, so switching themes
@@ -29,52 +25,19 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.name,
     locale: "en_IN",
-    images: [`/images/${site.heroImage}.webp`],
+    images: [photo(site.heroImage)],
   },
 };
 
-// LodgingBusiness structured data helps Google show the address, phone and reviews.
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LodgingBusiness",
-  name: site.name,
-  description: site.description,
-  url: site.url,
-  image: `${site.url}/images/${site.heroImage}.webp`,
-  telephone: site.phone,
-  email: site.email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: site.address.street,
-    addressLocality: site.address.locality,
-    addressRegion: site.address.region,
-    postalCode: site.address.postalCode,
-    addressCountry: site.address.country,
-  },
-  geo: { "@type": "GeoCoordinates", ...site.geo },
-  checkinTime: site.checkIn,
-  checkoutTime: site.checkOut,
-  sameAs: Object.values(site.social).filter(Boolean),
-};
-
+// The public site's header, footer and effects are in app/(site)/layout.tsx,
+// so the admin page (app/admin) gets a plain page.
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${playfair.variable} ${lato.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
-      <body className="min-h-screen flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <ScrollReveals />
-        <Footer />
-        <EffectsLayer />
-        <PreviewControls />
-      </body>
+      <body className="min-h-screen flex flex-col">{children}</body>
     </html>
   );
 }
