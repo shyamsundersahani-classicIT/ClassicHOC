@@ -1,0 +1,163 @@
+{
+  "business": {
+    "name": "House of Classic",
+    "tagline": "Your new party house, equipped with the best resources",
+    "description": "House of Classic is a luxury party villa in Jaipur for bachelor's parties, birthdays, pool parties, family get-togethers and corporate events. Pool, dance floor, garden, cinema, gym and game zone.",
+    "address": {
+      "street": "C-9, Pratap Marg, Behind Science Park, Subhash Nagar",
+      "locality": "Jaipur",
+      "region": "Rajasthan",
+      "postalCode": "302016",
+      "country": "IN"
+    },
+    "phone": "+91 9829132322",
+    "whatsapp": "919829132322",
+    "email": "houseofclassic9@gmail.com",
+    "geo": { "latitude": 26.9124, "longitude": 75.7873 },
+    "social": { "facebook": "", "instagram": "", "youtube": "" },
+    "checkIn": "2:00 PM",
+    "checkOut": "11:00 AM",
+    "nightlyRate": "",
+    "heroImage": "ANK01934_1.webp"
+  },
+  "rates": {
+    "securityDeposit": 10000,
+    "inclusions": [
+      "Pool area",
+      "Living area",
+      "Bar area",
+      "Dining hall",
+      "Indoor kitchen (self-use)",
+      "Ground-floor rooms",
+      "Whole ground-floor area",
+      "Console & game area",
+      "Cinema hall",
+      "Entire house / villa"
+    ],
+    "packages": [
+      {
+        "id": "splash-relax",
+        "name": "Splash & Relax",
+        "price": 15000,
+        "timing": "4 PM – 8 PM",
+        "hours": 4,
+        "maxGuests": 10,
+        "recommended": false,
+        "inclusions": ["Pool area", "Living area", "Bar area", "Dining hall"]
+      },
+      {
+        "id": "luxury-leisure",
+        "name": "Luxury Leisure",
+        "price": 18000,
+        "timing": "4 PM – 8 PM",
+        "hours": 4,
+        "maxGuests": 10,
+        "recommended": false,
+        "inclusions": ["Pool area", "Living area", "Bar area", "Dining hall", "Indoor kitchen (self-use)"]
+      },
+      {
+        "id": "premium-evening",
+        "name": "Premium Indulgence",
+        "price": 25000,
+        "timing": "4 PM – 9 PM",
+        "hours": 5,
+        "maxGuests": 10,
+        "recommended": false,
+        "inclusions": ["Pool area", "Living area", "Bar area", "Dining hall", "Indoor kitchen (self-use)", "Ground-floor rooms", "Whole ground-floor area"]
+      },
+      {
+        "id": "premium-midnight",
+        "name": "Premium Indulgence",
+        "price": 30000,
+        "timing": "2 PM – 12 AM (midnight)",
+        "hours": 10,
+        "maxGuests": 10,
+        "recommended": true,
+        "inclusions": ["Pool area", "Living area", "Bar area", "Dining hall", "Indoor kitchen (self-use)", "Ground-floor rooms", "Whole ground-floor area", "Console & game area", "Cinema hall", "Entire house / villa"]
+      }
+    ]
+  },
+  "amenities": [
+    { "title": "Swimming Pool", "tag": "Pool", "image": "ANK01934_1.webp", "text": "Spill, splash, dance and swim in our deep swimming pool, under a glass roof and a rainbow of light." },
+    { "title": "Party Garden", "tag": "Outdoors", "image": "IMG_5709-1.webp", "text": "Spend your days and nights talking, walking or partying in this beautiful garden, which holds up to 70 people." },
+    { "title": "Dance Floor", "tag": "Music", "image": "IMG_5707.webp", "text": "Dance your worries away on a floor built for the purpose, with a built-in sound and lighting system." },
+    { "title": "Indoor Bar Area", "tag": "Drinks", "image": "", "text": "Store, mix and pour all your drinks with ease, and make more memories at the bar." },
+    { "title": "Cinema Hall", "tag": "Screen", "image": "IMG_5619.webp", "text": "A 17-seat cinema hall with comfortable recliners for the binge watchers in your group." },
+    { "title": "Game Zone", "tag": "Play", "image": "IMG_5601.webp", "text": "Table tennis, pool, carrom and chess for all the excitement, thrill and energy you want." },
+    { "title": "Terrace Gym", "tag": "Fitness", "image": "gym.webp", "text": "A refreshing terrace gym with a treadmill, cross trainer, multi-gym and cycle." },
+    { "title": "Luxurious Bedrooms", "tag": "Stay", "image": "ANK01958.webp", "text": "Three garden-facing bedrooms with fresh bedding, linens and toiletries." }
+  ],
+  "eventTypes": [
+    "Bachelor's Party",
+    "Birthday Party",
+    "Pool Party",
+    "Dance Party",
+    "Ladies' Night Out",
+    "Product Shoot",
+    "Kitty Party",
+    "Family Night Out",
+    "Get-together",
+    "Reunion Party",
+    "Corporate Parties & Events"
+  ],
+  "pages": {
+    "home": {
+      "heroTitle": "Your party villa",
+      "heroTitleAccent": "in Jaipur.",
+      "heroText": "Bring everyone together for birthdays, reunions and weekends away. A pool, party garden and cinema, all in one villa.",
+      "heroNote": "Share your date and guest count. We'll confirm availability on WhatsApp.",
+      "highlights": ["3 bedrooms", "Indoor pool & party garden", "17-seat cinema"],
+      "slides": [
+        { "image": "ANK01934_1.webp", "caption": "The pool at House of Classic", "focus": "lower" },
+        { "image": "IMG_5709-1.webp", "caption": "The party garden", "focus": "bottom" },
+        { "image": "IMG_5667.webp", "caption": "A lounge for your get-togethers", "focus": "center" },
+        { "image": "IMG_5619.webp", "caption": "The 17-seat cinema", "focus": "center" }
+      ],
+      "introHeading": "Luxury staying, redefined.",
+      "introParagraphs": [
+        "House of Classic is a luxury party house made for your special occasions. With exemplary amenities, state-of-the-art sound systems, luxurious décor and a welcoming atmosphere, your stay here will be beyond perfect.",
+        "A 3-storey villa in the heart of Jaipur with 3 cozy bedrooms, an indoor pool, party garden, outdoor glass lounge, terrace gym, indoor and terrace bars, and a sports corner."
+      ],
+      "introBadge": "Enjoy the party!",
+      "introImages": ["IMG_5667.webp", "ANK01958.webp"],
+      "stats": [
+        { "value": "3", "label": "Storeys of luxury" },
+        { "value": "70", "label": "Guests in the garden" },
+        { "value": "17", "label": "Seat cinema hall" },
+        { "value": "8+", "label": "Amenities to enjoy" }
+      ],
+      "amenitiesHeading": "Everything in one villa",
+      "splashHeading": "Splash & Relax, your way",
+      "splashText": "Pool time or a celebration until midnight. Explore 4-, 5- and 10-hour packages for up to 10 guests, from {fromPrice}.",
+      "galleryHeading": "Comfort and luxury",
+      "galleryImages": ["IMG_5667.webp", "ANK01958.webp", "IMG_5645.webp", "IMG_5608_1.webp", "IMG_5712.webp"],
+      "ctaHeading": "Plan your celebration"
+    },
+    "amenities": {
+      "heroImage": "ANK01934_1.webp",
+      "heroText": "Splash, relax and celebrate with everything you need under one roof.",
+      "alsoIncluded": "Also included: outdoor and indoor kitchens, living and dining halls, an outdoor glass lounge, a suite room with steam and jacuzzi tub, and a rain dance area."
+    },
+    "splash": {
+      "heroImage": "IMG_5599.webp",
+      "heroText": "A poolside afternoon or a celebration until midnight. Find the time and spaces that suit your group.",
+      "packagesHeading": "Four ways to celebrate",
+      "packagesText": "Every package includes the pool, living area, bar area and dining hall. Food is allowed; kitchen access depends on your package.",
+      "bookingText": "Send your preferred date on WhatsApp to confirm availability, the final payable amount and applicable terms before booking."
+    },
+    "gallery": {
+      "heading": "Every corner of the villa",
+      "slides": [
+        { "image": "ANK01934_1.webp", "title": "The glass-roof pool", "note": "Swim under open skies, even when it rains." },
+        { "image": "IMG_5599.webp", "title": "Pool with a rainbow", "note": "Light plays across the water all afternoon." },
+        { "image": "ANK01994-1.webp", "title": "The balcony", "note": "Sunrise and sunset views over Jaipur." },
+        { "image": "IMG_5619.webp", "title": "The 17-seat cinema", "note": "Recliners, surround sound and a private screen." },
+        { "image": "IMG_5601.webp", "title": "The game zone", "note": "Pool table, table tennis and more." },
+        { "image": "IMG_5709-1.webp", "title": "The party garden", "note": "Room for 70 guests under the open sky." }
+      ]
+    },
+    "contact": {
+      "replyNote": "We reply on WhatsApp, usually the same day."
+    }
+  }
+}

@@ -65,8 +65,7 @@ Installation and font downloads during the build may need internet access.
 
 - Home: http://localhost:3000/
 - Packages: http://localhost:3000/splash-relax
-- Partners and Chowka menu: http://localhost:3000/our-tie-ups
 - Gallery: http://localhost:3000/gallery
 - Contact: http://localhost:3000/contact
 
-Business and package details are in `lib/site.ts`. The Chowka PDF is in `public/menus/Menu-chowka.pdf`.
+Business and package details are in `lib/site.ts`.
