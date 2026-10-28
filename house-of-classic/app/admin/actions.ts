@@ -46,8 +46,12 @@ function shapeError(value: unknown, shape: unknown, at: string): string | null {
   return null;
 }
 
+// The bundled file may have no review quotes yet, so give the shape check an example of one.
+const contentShape: Content = structuredClone(template);
+contentShape.pages.home.reviews.quotes = [{ name: "", date: "", text: "" }];
+
 function contentError(c: Content): string | null {
-  const shape = shapeError(c, template, "content");
+  const shape = shapeError(c, contentShape, "content");
   if (shape) return shape;
   const { packages, inclusions, securityDeposit } = c.rates;
   if (packages.length === 0) return "Keep at least one package.";
@@ -62,6 +66,11 @@ function contentError(c: Content): string | null {
   }
   if (c.pages.home.slides.length === 0) return "The home slideshow needs at least one photo.";
   if (c.pages.home.introImages.length !== 2) return "The home intro needs exactly two photos.";
+  if (c.pages.home.tiles.some((t) => !t.href.startsWith("/"))) return "Every banner tile must open a page on this website.";
+  const reviews = c.pages.home.reviews;
+  if (reviews.rating < 0 || reviews.rating > 5 || reviews.categories.some((cat) => cat.score < 0 || cat.score > 5)) return "Review scores must be between 0 and 5.";
+  if (reviews.links.some((l) => !l.site.trim() || !/^https:\/\/\S+\.\S+/.test(l.url))) return "Every booking site needs a name and a link starting with https://";
+  if (reviews.quotes.some((q) => !q.text.trim() || !q.name.trim())) return "Every review quote needs the guest's name and the review text.";
   return null;
 }
 
@@ -75,6 +84,8 @@ async function missingImage(c: Content): Promise<string | null> {
     ...c.pages.home.introImages,
     ...c.pages.home.galleryImages,
     ...c.pages.home.slides.map((s) => s.image),
+    ...c.pages.home.tiles.map((t) => t.image),
+    c.pages.home.closing.image,
     ...c.pages.gallery.slides.map((s) => s.image),
     ...c.amenities.map((a) => a.image).filter(Boolean),
   ];

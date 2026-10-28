@@ -81,6 +81,47 @@ The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exis
 - **Photos** were converted to `.webp` in `public/images/` (about 68 files).
 - **Splash & Relax prices** were typed in from the Aqua Party rate chart (`rates` in `data/content.json`): Rs 15,000, Rs 18,000, Rs 25,000 and Rs 30,000, plus a Rs 10,000 security deposit.
 
+### Bolder design, Phase 1 (inspired by slice.bank.in)
+
+Techniques adapted from the Slice bank home page, keeping our own fonts and theme colours:
+
+- **Big, tight headings:**
+  - Two classes in `app/globals.css`: `display-xl` for page titles (about 3rem on phones up to 6.5rem) and `display-lg` for section headings (2.5rem up to 5rem).
+  - Used on the home page and the Splash & Relax page.
+  - The map card heading on the home page only got a smaller bump, because the card is half the page wide.
+- **Full-width home banner** (changed 28 Oct 2026 at the owner's request):
+  - The home banner is now styled like the Gallery page slideshow. The slideshow photos fill the whole banner behind a wine gradient, and the heading, text, buttons and photo tiles sit on top.
+  - Thumbnails sit on the right (wide screens) and a gold progress bar runs along the bottom. The caption, arrows, pause button and dots were removed at the owner's request. Instead, the slideshow pauses while the mouse is over the banner or keyboard focus is inside it.
+  - Code: `components/HeroSlideshow.tsx`, which now takes the banner content as children. Photos and captions are still edited in the admin under **Photos > Home page slideshow**.
+- **Photo tiles in the home banner:**
+  - Three clickable photo tiles under the banner buttons: Aqua Party, Reserve the Villa, Gallery. On phones they scroll sideways.
+  - Content is in `pages.home.tiles` in `data/content.json`. Admin: **Page text > Home page: photo tiles in the banner** (title, line underneath, photo, which page it opens).
+  - In the line underneath, `{fromPrice}` shows the lowest package price.
+- **Frosted-glass package cards on Splash & Relax:**
+  - The banner and the package cards now share one full-width pool photo (`pages.splash.heroImage`).
+  - The cards use the `.glass` class in `app/globals.css`, which is built from the theme's cream colour. The recommended package keeps a gold border and darker glass.
+  - The comparison table and "Before you book" stay below on a light background.
+- **Checked** (28 Oct 2026) with screenshots at 360px and 1440px wide, in Royal Wine, Rajwada Blue, Emerald Garden and Midnight Minimal. Not checked: Desert Sandstone, and real phones.
+### Bolder design, Phase 2 (28 Oct 2026)
+
+- **Smoother rise-in:**
+  - The existing reveal effect (`components/ScrollReveals.tsx` plus the `[data-reveal-state]` rules in `app/globals.css`) is now longer and softer, and headings rise further (48px).
+  - Items that come into view together (a row of cards) arrive about 90ms apart, using the `--reveal-delay` CSS variable.
+  - Still switched off for visitors who prefer reduced motion.
+- **Amenity photo panels** (`app/(site)/amenities/page.tsx`):
+  - Each amenity is a large photo panel (at least 80% of the screen height) with a frosted-glass text card. The panels scroll normally, one after another.
+  - A pinned, overlapping "deck of cards" version, where each panel stayed put while the next slid over it, was tried and **removed on 28 Oct 2026 at the owner's request**: the next panel covered the text card while scrolling. Don't bring it back without asking.
+  - An amenity without a photo shows a gradient in the theme's colours.
+- **Essentials strip** (home page, after the packages teaser):
+  - Four short facts under the heading "The essentials, upfront."
+  - Every fact is reworded from text already on the site (fixed package charge, refundable deposit, "Food is allowed", same-day WhatsApp replies). Nothing new is claimed.
+  - **The owner should still review it.** Admin: **Page text > Home page: essentials strip**. Use `{fromPrice}` and `{deposit}` for live prices.
+  - We avoided the heading "No fine print", because the Splash & Relax page asks guests to confirm "applicable terms" before booking.
+- **Closing call to action** (end of the home page):
+  - "Your celebration starts here." over a full-width photo, with a WhatsApp button (message pre-filled) and a call button.
+  - Admin: **Page text > Home page: closing call to action** (heading, paragraph, background photo).
+- **Checked** with screenshots at 360px and 1440px wide, in Royal Wine, Rajwada Blue and Desert Sandstone. The amenity panels were re-checked at 1366×768 and 360px after the overlap was removed. Not checked on a real phone, and the new admin sections were not opened in a browser.
+
 ### Testing-only tools (temporary, must be removed before launch)
 
 These let the client compare looks live in the browser. A floating panel on every page switches between them.
@@ -245,7 +286,21 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 - [ ] Decide on a nightly rate. Note: `nightlyRate` exists in `data/content.json` but **no page shows it yet**, so the admin page doesn't offer it. A page would need to display it first.
 - [ ] **Check the map coordinates** (admin: Business details). The current 26.9124, 75.7873 is only approximate. Confirm it on Google Maps.
 - [ ] Have the privacy, cancellation and rules policies reviewed. They were copied from the old site.
-- [ ] Add real customer reviews. The old "Lorem ipsum" testimonial was removed.
+- [x] Guest reviews section on the home page (28 Oct 2026):
+  - Shows the real Airbnb scores: 4.87 from 15 reviews, plus the six category scores.
+  - Layout (from the owner's mockup, in our theme colours): a framed rounded card.
+    - Left: the rating with stars filled to the exact score.
+    - Right: "Detailed ratings" with an icon per category (`components/RatingIcon.tsx`, chosen by category name; unknown names get a star).
+    - The slide-to-open controls alternate sides: the first starts on the left and slides right, the second starts on the right and slides left.
+  - Underneath are two stacked **"slide to open"** controls (`components/SlideToOpen.tsx`), one for Airbnb (https://www.airbnb.co.in/rooms/809803371091618766) and one for MakeMyTrip (https://www.makemytrip.com/hotels/house_of_classic_jaipur-details-jaipur.html).
+    - At the owner's request, a click or tap does nothing. The visitor drags the gold handle at least 85% of the way, and the site opens in a new tab.
+    - Keyboard users can't drag, so they use the arrow keys, or Enter to open.
+    - Sites and links are edited in the admin under **Booking sites** in the guest reviews section.
+    - Tested in headless Edge with real mouse events: a click opens nothing, a 40% drag springs back, a full drag opens each site, and Enter works.
+    - The MakeMyTrip page blocks automated visitors, so its content couldn't be checked; confirm the link by hand.
+  - Admin: **Page text > Home page: guest reviews**. The flow was tested end to end in a browser: sign in, add a review, save, and it appears on the home page.
+- [ ] Paste the actual review texts into that admin section. Airbnb loads review texts with JavaScript, so they couldn't be copied automatically; copy them from the Airbnb host dashboard **word for word** with the guest's first name and month. The quote cards stay hidden until at least one is added.
+- [ ] Update the scores and the "Last checked" month now and then, as new Airbnb reviews come in.
 - [ ] The "Indoor Bar Area" amenity has no photo yet (admin: Amenities).
 - [ ] Recheck the Splash & Relax prices against the latest rate chart.
 

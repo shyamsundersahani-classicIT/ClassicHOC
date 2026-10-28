@@ -17,29 +17,35 @@ export default function Amenities() {
         <div className="absolute inset-0 -z-10 bg-ink/65" />
         <div className="px-6">
           <p className="text-xs font-bold uppercase tracking-[0.35em] text-gold">House of Classic</p>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">Amenities</h1>
+          <h1 className="display-xl mt-4 font-serif">Amenities</h1>
           <p className="mx-auto mt-4 max-w-xl text-cream/85">{pages.amenities.heroText}</p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl space-y-20 px-6 py-24">
+      {/* Each amenity is a large photo panel; the panels scroll normally, one after another.
+          (A pinned, overlapping "deck of cards" version was tried and dropped: it covered the text.) */}
+      <section aria-label="Our amenities" className="space-y-3 bg-cream py-3">
         {amenities.map((a, i) => (
-          <div key={a.title} className={`grid items-center gap-10 md:grid-cols-2 ${i % 2 ? "md:[&>div:first-child]:order-2" : ""}`}>
-            <div data-reveal className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
-              {a.image ? (
-                <Image src={photo(a.image)} alt={a.title} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover transition duration-700 hover:scale-105" />
-              ) : (
-                <div className="flex h-full items-center justify-center bg-gradient-to-br from-gold to-gold-dark font-serif text-4xl text-ink">
-                  {a.title}
-                </div>
-              )}
+          <article
+            key={a.title}
+            className="relative isolate flex min-h-[80svh] items-end overflow-hidden bg-night text-cream"
+          >
+            {a.image ? (
+              <Image src={photo(a.image)} alt={a.title} fill sizes="100vw" className="-z-10 object-cover" />
+            ) : (
+              <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-br from-gold-dark via-night to-wine" />
+            )}
+            <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
+            <div className="mx-auto w-full max-w-6xl px-6 pb-10 sm:pb-16">
+              <div data-reveal className="glass max-w-xl rounded-[28px] p-6 sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-gold">
+                  {String(i + 1).padStart(2, "0")} / {String(amenities.length).padStart(2, "0")} · {a.tag}
+                </p>
+                <h2 className="display-lg mt-3 font-serif">{a.title}</h2>
+                <p className="mt-4 text-base leading-relaxed text-cream/90 sm:text-lg">{a.text}</p>
+              </div>
             </div>
-            <div data-reveal>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-teal">{String(i + 1).padStart(2, "0")} · {a.tag}</p>
-              <h2 className="mt-3 font-serif text-4xl">{a.title}</h2>
-              <p className="mt-4 text-lg leading-relaxed text-muted">{a.text}</p>
-            </div>
-          </div>
+          </article>
         ))}
       </section>
 

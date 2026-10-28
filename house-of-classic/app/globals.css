@@ -172,6 +172,29 @@ body {
   color: transparent;
 }
 
+/* Big, tight display headings. Fluid sizes: about 3rem on phones up to
+   6.5rem on wide screens (display-xl, page titles) and 2.5rem up to 5rem
+   (display-lg, section headings). Use with font-serif. */
+.display-xl {
+  font-size: clamp(3rem, 1.6rem + 5vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+.display-lg {
+  font-size: clamp(2.5rem, 1.5rem + 3.6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+/* Frosted-glass card for use on top of photos. Built from the theme's cream,
+   so it changes with the theme. Pair with light text. */
+.glass {
+  background: color-mix(in srgb, var(--color-cream) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-cream) 35%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
 /* Hides the scrollbar on the lightbox filmstrip, scrolling still works */
 .scrollbar-none {
   scrollbar-width: none;
@@ -182,12 +205,18 @@ body {
 }
 
 /* Only offscreen elements are armed by JS; no-JS content stays readable. */
+/* --reveal-delay is set by ScrollReveals so items appearing together arrive one after another. */
 [data-reveal-state] {
-  transition: opacity 700ms ease, translate 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 800ms ease, translate 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 [data-reveal-state="pending"] {
   opacity: 0;
   translate: 0 24px;
+}
+/* Headings rise further, for a more noticeable entrance. */
+:is(h1, h2)[data-reveal-state="pending"] {
+  translate: 0 48px;
 }
 [data-reveal-state="visible"] {
   opacity: 1;

@@ -17,8 +17,11 @@ export default function ScrollReveals() {
       observer.unobserve(element);
     };
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) reveal(entry.target as HTMLElement);
+      // Items that scroll into view together (a row of cards) arrive one after another.
+      entries.filter((entry) => entry.isIntersecting).forEach((entry, i) => {
+        const element = entry.target as HTMLElement;
+        element.style.setProperty("--reveal-delay", `${Math.min(i, 4) * 90}ms`);
+        reveal(element);
       });
     }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
 
@@ -46,7 +49,10 @@ export default function ScrollReveals() {
       observer.disconnect();
       document.removeEventListener("focusin", onFocus);
       preference.removeEventListener("change", showAll);
-      elements.forEach((element) => delete element.dataset.revealState);
+      elements.forEach((element) => {
+        delete element.dataset.revealState;
+        element.style.removeProperty("--reveal-delay");
+      });
     };
   }, [pathname]);
 
