@@ -29,7 +29,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 - Branches:
   - `main`: the merged, current version.
   - `asif-siddki`: Asif's branch (merged into `main` through PR #1).
-  - `aman`: Aman's working branch. It currently matches `main`.
+  - `aman`: Aman's working branch. Merged into `main` through PR #2, then brought up to date with `main` (28 Oct 2026).
 
 **Rule:** do not commit straight to `main`. Work on your own branch and open a pull request.
 
@@ -40,6 +40,8 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | `b1a73ff` | First commit of the HOC website. |
 | `94bcde7` | Fixed the repo: `house-of-classic` had been added as a broken submodule (it had its own nested `.git`), so its files never reached GitHub. The nested `.git` was removed and the real files were added. |
 | `f3ac05b` | Merged PR #1 (`asif-siddki` into `main`). |
+| `5897a57` | Admin panel, "Our Tie-ups" page removed, Windows `dev` script fix, this handover file. Merged through PR #2 (`16da9b3`). |
+| `c830e2b` | Asif: "Menu pages". New **Reserve the Villa** page at `/product/hoc-booking` and a booking menu (`components/BookingMenu.tsx`); Splash & Relax moved under it in the header. Merged through PR #3 (`0e68f77`). |
 
 ---
 
@@ -53,6 +55,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | `/gallery` | `app/(site)/gallery/page.tsx` | Masonry photo gallery with a lightbox |
 | `/amenities` | `app/(site)/amenities/page.tsx` | Pool, garden, dance floor, bar, cinema, game zone, gym, bedrooms |
 | `/splash-relax` | `app/(site)/splash-relax/page.tsx` | The 4 Splash & Relax (Aqua Party) packages with prices, plus an enquiry form |
+| `/product/hoc-booking` | `app/(site)/product/hoc-booking/page.tsx` | Reserve the Villa: Lawn, Premium and Entire House party packages, plus an enquiry form. Added by Asif. **Its prices are still written in the page file, not in the admin** |
 | `/contact` | `app/(site)/contact/page.tsx` | Contact details, map, enquiry form |
 | `/rules-regulations` | `app/(site)/rules-regulations/page.tsx` | Policy page |
 | `/privacy-policy` | `app/(site)/privacy-policy/page.tsx` | Policy page |
@@ -73,7 +76,7 @@ The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exis
   - Page titles and descriptions, plus Open Graph images (`app/layout.tsx`).
   - `LodgingBusiness` structured data (JSON-LD) with the address, phone and location.
   - `sitemap.xml` (`app/sitemap.ts`) and `robots.txt` (`app/robots.ts`).
-  - **Redirects** from old WordPress URLs (`next.config.ts`): `/product/hoc-booking` goes to `/contact`, and `/elementor-280` goes to `/`. The removed `/our-tie-ups` page also redirects to `/`.
+  - **Redirects** from old WordPress URLs (`next.config.ts`): `/elementor-280` goes to `/`. (The old `/product/hoc-booking` redirect was removed on 28 Oct 2026, because that address is now the real Reserve the Villa page.) The removed `/our-tie-ups` page also redirects to `/`.
 - **Policy text** was copied from the old site into `data/legal.json` and is shown through `components/LegalPage.tsx`.
 - **Photos** were converted to `.webp` in `public/images/` (about 68 files).
 - **Splash & Relax prices** were typed in from the Aqua Party rate chart (`rates` in `data/content.json`): Rs 15,000, Rs 18,000, Rs 25,000 and Rs 30,000, plus a Rs 10,000 security deposit.
@@ -211,6 +214,7 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 - [x] Password-protected `/admin` page for rates, packages, page text, amenities, photos, business details and policies.
 - [ ] Set `ADMIN_PASSWORD` and `GITHUB_TOKEN` on Vercel, then test a save on the live site.
 - [ ] Click through every tab in a real browser, on a computer and on a phone.
+- [ ] Move the **Reserve the Villa** prices (Lawn Party ₹20,000, Premium ₹30,000, Entire House ₹40,000) from `app/(site)/product/hoc-booking/page.tsx` into `data/content.json`, so staff can change them in the admin like the Splash & Relax rates.
 - [ ] Later, if needed: let staff edit the small labels and button texts, and the photo descriptions (alt text) used by screen readers and Google.
 
 **2. Connect with Airbnb and MakeMyTrip**

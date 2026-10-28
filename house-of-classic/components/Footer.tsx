@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { site } from "@/lib/site";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
     <footer className="wine-gradient text-cream/80">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
         <div>
-          <p className="font-serif text-xl text-gold">{site.name}</p>
+          <Logo className="h-16 w-auto text-gold" />
           <p className="mt-3 text-sm">{site.address.street}, {site.address.locality} {site.address.postalCode}</p>
         </div>
         <div className="text-sm">
