@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 // No backend needed: the form opens WhatsApp with the enquiry filled in.
 // The same message is also available by email from the mailto link below.
 export default function EnquiryForm({ defaultPackage = "" }: { defaultPackage?: string }) {
-  const [form, setForm] = useState({ name: "", phone: "", date: "", guests: "", type: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", date: "", guests: "", type: defaultPackage, message: "" });
   const [error, setError] = useState("");
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -59,7 +59,7 @@ export default function EnquiryForm({ defaultPackage = "" }: { defaultPackage?: 
         <input
           className={input}
           placeholder="e.g. Birthday party, or Splash & Relax package"
-          defaultValue={defaultPackage}
+          value={form.type}
           onChange={set("type")}
         />
       </label>

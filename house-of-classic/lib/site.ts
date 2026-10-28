@@ -14,7 +14,6 @@ export const nav = [
   { href: "/", label: "Home" },
   { href: "/gallery", label: "Gallery" },
   { href: "/amenities", label: "Amenities" },
-  { href: "/splash-relax", label: "Splash & Relax" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -37,3 +36,8 @@ export const fillPrices = (text: string) => text.replaceAll("{fromPrice}", fromP
 // Set only when every package has the same guest limit, so pages can say "all packages".
 const guestLimits = new Set(splashPackages.map((p) => p.maxGuests));
 export const sharedGuestLimit = guestLimits.size === 1 ? splashPackages[0].maxGuests : null;
+
+export const bookingLinks = [
+  { href: "/splash-relax", label: "Aqua Party", description: `Poolside packages · from ${fromPrice}` },
+  { href: "/product/hoc-booking", label: "Reserve the Villa", description: "Private stays & lawn celebrations" },
+];
