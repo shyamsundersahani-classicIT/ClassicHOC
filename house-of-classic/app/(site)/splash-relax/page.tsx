@@ -59,8 +59,8 @@ export default function SplashRelax() {
           ))}
         </div>
 
-        <div className="mt-14" aria-labelledby="comparison-heading">
-          <h2 data-reveal id="comparison-heading" className="font-serif text-3xl">Compare every inclusion</h2>
+        <details className="mt-10 rounded-2xl border border-ink/15 p-6">
+          <summary id="comparison-heading" className="cursor-pointer font-serif text-2xl">Compare all package inclusions</summary>
           <p id="comparison-help" className="mt-3 text-sm text-muted">Included spaces are marked below. On smaller screens, scroll across to compare all packages.</p>
           <div role="region" aria-labelledby="comparison-heading" aria-describedby="comparison-help" tabIndex={0} className="mt-6 overflow-x-auto rounded-xl border border-ink/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
             <table className="w-full min-w-[850px] border-collapse text-left text-sm">
@@ -92,12 +92,13 @@ export default function SplashRelax() {
               </tbody>
             </table>
           </div>
-        </div>
+        </details>
 
         <aside data-reveal className="mt-10 rounded-2xl bg-blush p-6 sm:p-8" aria-labelledby="booking-notes">
           <h2 id="booking-notes" className="font-serif text-2xl">Before you book</h2>
           <p className="mt-3 leading-relaxed">A {rupees(splashSecurityDeposit)} refundable security deposit applies to every package, in addition to the package charge.{sharedGuestLimit ? ` All packages are limited to ${sharedGuestLimit} guests.` : ""}</p>
           <p className="mt-3 leading-relaxed text-muted">{text.bookingText}</p>
+          <p className="mt-3 leading-relaxed text-muted">Proper swimwear is required. Diving is prohibited. Children under 2 are not permitted in the pool area; guests must supervise themselves and their children.</p>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold">
             <Link href="/rules-regulations" className="underline underline-offset-4">House rules</Link>
             <Link href="/cancellation-refund-policy" className="underline underline-offset-4">Cancellation policy</Link>

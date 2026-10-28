@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import BookingMenu from "@/components/BookingMenu";
 import { nav, site } from "@/lib/site";
 
 export default function Header() {
@@ -22,12 +23,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <Link
-          href="/contact"
-          className="hidden rounded-full bg-gold px-5 py-2 text-sm font-bold text-ink transition hover:bg-cream lg:inline-block"
-        >
-          Check Availability
-        </Link>
+        <div className="hidden lg:block"><BookingMenu /></div>
 
         <button
           type="button"
@@ -54,6 +50,7 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            <li className="border-t border-cream/20 py-3"><BookingMenu mobile onNavigate={() => setOpen(false)} /></li>
           </ul>
         </nav>
       )}
