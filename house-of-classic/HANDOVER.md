@@ -256,6 +256,8 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 - [ ] Set `ADMIN_PASSWORD` and `GITHUB_TOKEN` on Vercel, then test a save on the live site.
 - [ ] Click through every tab in a real browser, on a computer and on a phone.
 - [ ] Move the **Reserve the Villa** prices (Lawn Party ₹20,000, Premium ₹30,000, Entire House ₹40,000) from `app/(site)/product/hoc-booking/page.tsx` into `data/content.json`, so staff can change them in the admin like the Splash & Relax rates.
+  - Since 29 Oct 2026 that page also has a "Compare lawn & party packages" table above "Reserve the villa", open by default. It copies the owner's rate chart (`HOC - Lawn Area_R2_12082026.pdf`).
+  - The table reads the same `parties` list as the cards, so the prices only need changing in one place, but that place is still the code.
 - [ ] Later, if needed: let staff edit the small labels and button texts, and the photo descriptions (alt text) used by screen readers and Google.
 
 **2. Connect with Airbnb and MakeMyTrip**

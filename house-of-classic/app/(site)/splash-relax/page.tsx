@@ -65,7 +65,8 @@ export default function SplashRelax() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20">
-        <details className="rounded-2xl border border-ink/15 p-6">
+        {/* Open by default so the comparison table is visible straight away; it can still be collapsed. */}
+        <details open className="rounded-2xl border border-ink/15 p-6">
           <summary id="comparison-heading" className="cursor-pointer font-serif text-2xl">Compare all package inclusions</summary>
           <p id="comparison-help" className="mt-3 text-sm text-muted">Included spaces are marked below. On smaller screens, scroll across to compare all packages.</p>
           <div role="region" aria-labelledby="comparison-heading" aria-describedby="comparison-help" tabIndex={0} className="mt-6 overflow-x-auto rounded-xl border border-ink/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
