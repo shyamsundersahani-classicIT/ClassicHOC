@@ -6,7 +6,7 @@ import { photo } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "Amenities",
-  description: "Pool, dance floor, party garden, cinema hall, terrace gym, bar, game zone and bedrooms at House of Classic, Jaipur.",
+  description: "Pool, outdoor lounge, party garden, mini theater, terrace gym, bar, game zone and bedrooms at House of Classic, Jaipur.",
 };
 
 export default function Amenities() {

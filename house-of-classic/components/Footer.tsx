@@ -8,13 +8,18 @@ export default function Footer() {
     { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/cancellation-refund-policy", label: "Cancellation & Refund Policy" },
   ];
+  const street = site.address.street;
+  const cut = street.lastIndexOf(", ");
+  const streetLine = cut === -1 ? street : street.slice(0, cut);
+  const areaLine = cut === -1 ? "" : `${street.slice(cut + 2)}, `;
 
   return (
     <footer className="wine-gradient text-cream/80">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
         <div>
           <Logo className="h-16 w-auto text-gold" />
-          <p className="mt-3 text-sm">{site.address.street}, {site.address.locality} {site.address.postalCode}</p>
+          {/* Two lines: the street, then the area (last part of the street) with city and PIN */}
+          <p className="mt-3 text-sm">{streetLine},<br />{areaLine}{site.address.locality} {site.address.postalCode}</p>
         </div>
         <div className="text-sm">
           <p className="font-bold text-cream">Contact</p>

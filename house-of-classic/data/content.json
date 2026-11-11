@@ -80,9 +80,9 @@
   "amenities": [
     { "title": "Swimming Pool", "tag": "Pool", "image": "ANK01934_1.webp", "text": "Spill, splash, dance and swim in our deep swimming pool, under a glass roof and a rainbow of light." },
     { "title": "Party Garden", "tag": "Outdoors", "image": "IMG_5709-1.webp", "text": "Spend your days and nights talking, walking or partying in this beautiful garden, which holds up to 70 people." },
-    { "title": "Dance Floor", "tag": "Music", "image": "IMG_5707.webp", "text": "Dance your worries away on a floor built for the purpose, with a built-in sound and lighting system." },
+    { "title": "Outdoor Lounge", "tag": "Music", "image": "IMG_5707.webp", "text": "Dance your worries away on a floor built for the purpose, with a built-in sound and lighting system." },
     { "title": "Indoor Bar Area", "tag": "Drinks", "image": "", "text": "Store, mix and pour all your drinks with ease, and make more memories at the bar." },
-    { "title": "Cinema Hall", "tag": "Screen", "image": "IMG_5619.webp", "text": "A 17-seat cinema hall with comfortable recliners for the binge watchers in your group." },
+    { "title": "Mini Theater", "tag": "Screen", "image": "IMG_5619.webp", "text": "A 17-seat cinema hall with comfortable recliners for the binge watchers in your group." },
     { "title": "Game Zone", "tag": "Play", "image": "IMG_5601.webp", "text": "Table tennis, pool, carrom and chess for all the excitement, thrill and energy you want." },
     { "title": "Terrace Gym", "tag": "Fitness", "image": "gym.webp", "text": "A refreshing terrace gym with a treadmill, cross trainer, multi-gym and cycle." },
     { "title": "Luxurious Bedrooms", "tag": "Stay", "image": "ANK01958.webp", "text": "Three garden-facing bedrooms with fresh bedding, linens and toiletries." }
