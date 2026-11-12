@@ -63,7 +63,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | 404 | `app/not-found.tsx` | Custom "page not found" page |
 | `/admin` | `app/admin/page.tsx` | Password-protected content editor (section 6). Not linked from the site, blocked in `robots.txt` |
 
-The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exists so `app/(site)/layout.tsx` can give the public pages their header, footer and effects, while `/admin` gets a plain page.
+The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exists so `app/(site)/layout.tsx` can give the public pages their header and footer, while `/admin` gets a plain page.
 
 ### Features
 
@@ -127,16 +127,15 @@ Techniques adapted from the Slice bank home page, keeping our own fonts and them
 These let the client compare looks live in the browser. A floating panel on every page switches between them.
 
 - **Colour themes** (`lib/themes.ts`): Royal Wine (the default), Rajwada Blue, Desert Sandstone, Emerald Garden, Midnight Minimal.
-- **Motion effects** (`lib/effects.ts`, `components/EffectsLayer.tsx`): None, Champagne Glow (the default), Starlit Evening, Poolside Ripples, Golden Celebration, Silk & Light.
+- **Motion effects:** removed on 12 Nov 2026 at the owner's request. There is no background animation and no click, cursor or drag effect. Don't add them back.
 - The panel itself: `components/PreviewControls.tsx`.
 
-**Once the client picks a theme and an effect:**
+**Once the client picks a theme:**
 
 1. Hardcode the chosen theme as the default.
 2. Remove `PreviewControls` from `app/(site)/layout.tsx`, and the `themeBootScript` from `app/layout.tsx`.
-3. Remove `EffectsLayer` too if "None" is chosen.
 
-The `TESTING ONLY` comment in `app/layout.tsx` marks this code. `EffectsLayer` is in `app/(site)/layout.tsx`.
+The `TESTING ONLY` comment in `app/layout.tsx` marks this code.
 
 ---
 
@@ -308,7 +307,7 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 
 ### Design
 
-- [ ] Client to pick the final colour theme and motion effect.
+- [ ] Client to pick the final colour theme.
 - [ ] Then remove the testing-only preview panel (see section 3).
 
 ### Technical
