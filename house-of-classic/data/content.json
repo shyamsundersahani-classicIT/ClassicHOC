@@ -80,9 +80,9 @@
   "amenities": [
     { "title": "Swimming Pool", "tag": "Pool", "image": "ANK01934_1.webp", "text": "Spill, splash, dance and swim in our deep swimming pool, under a glass roof and a rainbow of light." },
     { "title": "Party Garden", "tag": "Outdoors", "image": "IMG_5709-1.webp", "text": "Spend your days and nights talking, walking or partying in this beautiful garden, which holds up to 70 people." },
-    { "title": "Dance Floor", "tag": "Music", "image": "IMG_5707.webp", "text": "Dance your worries away on a floor built for the purpose, with a built-in sound and lighting system." },
+    { "title": "Outdoor Lounge", "tag": "Music", "image": "IMG_5707.webp", "text": "Dance your worries away on a floor built for the purpose, with a built-in sound and lighting system." },
     { "title": "Indoor Bar Area", "tag": "Drinks", "image": "", "text": "Store, mix and pour all your drinks with ease, and make more memories at the bar." },
-    { "title": "Cinema Hall", "tag": "Screen", "image": "IMG_5619.webp", "text": "A 17-seat cinema hall with comfortable recliners for the binge watchers in your group." },
+    { "title": "Mini Theater", "tag": "Screen", "image": "IMG_5619.webp", "text": "A 17-seat cinema hall with comfortable recliners for the binge watchers in your group." },
     { "title": "Game Zone", "tag": "Play", "image": "IMG_5601.webp", "text": "Table tennis, pool, carrom and chess for all the excitement, thrill and energy you want." },
     { "title": "Terrace Gym", "tag": "Fitness", "image": "gym.webp", "text": "A refreshing terrace gym with a treadmill, cross trainer, multi-gym and cycle." },
     { "title": "Luxurious Bedrooms", "tag": "Stay", "image": "ANK01958.webp", "text": "Three garden-facing bedrooms with fresh bedding, linens and toiletries." }
@@ -106,6 +106,11 @@
       "heroTitleAccent": "in Jaipur.",
       "heroText": "Bring everyone together for birthdays, reunions and weekends away. A pool, party garden and cinema, all in one villa.",
       "heroNote": "Share your date and guest count. We'll confirm availability on WhatsApp.",
+      "tiles": [
+        { "label": "Aqua Party", "text": "4 hours, from {fromPrice}", "image": "IMG_5599.webp", "href": "/splash-relax" },
+        { "label": "Reserve the Villa", "text": "Private stays & lawn celebrations", "image": "ANK01958.webp", "href": "/product/hoc-booking" },
+        { "label": "Gallery", "text": "Pool, garden, cinema and more", "image": "IMG_5709-1.webp", "href": "/gallery" }
+      ],
       "highlights": ["3 bedrooms", "Indoor pool & party garden", "17-seat cinema"],
       "slides": [
         { "image": "ANK01934_1.webp", "caption": "The pool at House of Classic", "focus": "lower" },
@@ -131,7 +136,41 @@
       "splashText": "Pool time or a celebration until midnight. Explore 4-, 5- and 10-hour packages for up to 10 guests, from {fromPrice}.",
       "galleryHeading": "Comfort and luxury",
       "galleryImages": ["IMG_5667.webp", "ANK01958.webp", "IMG_5645.webp", "IMG_5608_1.webp", "IMG_5712.webp"],
-      "ctaHeading": "Plan your celebration"
+      "ctaHeading": "Plan your celebration",
+      "essentials": {
+        "heading": "The essentials, upfront.",
+        "items": [
+          { "title": "Fixed package prices", "text": "A fixed package charge, from {fromPrice}." },
+          { "title": "Refundable deposit", "text": "A {deposit} refundable security deposit applies to every package." },
+          { "title": "Food allowed", "text": "Kitchen access depends on your package." },
+          { "title": "Quick replies", "text": "We reply on WhatsApp, usually the same day." }
+        ]
+      },
+      "reviews": {
+        "heading": "Loved by our guests.",
+        "rating": 4.87,
+        "count": 15,
+        "source": "Airbnb",
+        "links": [
+          { "site": "Airbnb", "url": "https://www.airbnb.co.in/rooms/809803371091618766" },
+          { "site": "MakeMyTrip", "url": "https://www.makemytrip.com/hotels/house_of_classic_jaipur-details-jaipur.html" }
+        ],
+        "checked": "October 2026",
+        "categories": [
+          { "label": "Cleanliness", "score": 5 },
+          { "label": "Accuracy", "score": 4.9 },
+          { "label": "Check-in", "score": 4.9 },
+          { "label": "Value", "score": 4.9 },
+          { "label": "Communication", "score": 4.8 },
+          { "label": "Location", "score": 4.7 }
+        ],
+        "quotes": []
+      },
+      "closing": {
+        "heading": "Your celebration starts here.",
+        "text": "Share your date and guest count. We'll confirm availability on WhatsApp.",
+        "image": "IMG_5709-1.webp"
+      }
     },
     "amenities": {
       "heroImage": "ANK01934_1.webp",

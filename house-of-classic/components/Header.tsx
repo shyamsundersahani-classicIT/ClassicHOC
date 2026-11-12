@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import BookingMenu from "@/components/BookingMenu";
-import { nav, site } from "@/lib/site";
+import Logo from "@/components/Logo";
+import { nav } from "@/lib/site";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -11,8 +12,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-wine/90 text-cream shadow-lg shadow-black/20 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="font-serif text-xl tracking-wide text-gold">
-          {site.name}
+        <Link href="/" className="text-gold transition hover:text-cream">
+          <Logo className="h-10 w-auto sm:h-11" />
         </Link>
 
         <nav className="hidden gap-6 text-sm lg:flex" aria-label="Main">

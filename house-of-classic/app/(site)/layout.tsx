@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveals from "@/components/ScrollReveals";
 import PreviewControls from "@/components/PreviewControls";
-import EffectsLayer from "@/components/EffectsLayer";
 import { site } from "@/lib/site";
 import { photo } from "@/lib/photos";
 
@@ -41,7 +40,6 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
       <main className="flex-1">{children}</main>
       <ScrollReveals />
       <Footer />
-      <EffectsLayer />
       <PreviewControls />
     </>
   );

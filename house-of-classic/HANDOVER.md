@@ -29,7 +29,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 - Branches:
   - `main`: the merged, current version.
   - `asif-siddki`: Asif's branch (merged into `main` through PR #1).
-  - `aman`: Aman's working branch. It currently matches `main`.
+  - `aman`: Aman's working branch. Merged into `main` through PR #2, then brought up to date with `main` (28 Oct 2026).
 
 **Rule:** do not commit straight to `main`. Work on your own branch and open a pull request.
 
@@ -40,6 +40,8 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | `b1a73ff` | First commit of the HOC website. |
 | `94bcde7` | Fixed the repo: `house-of-classic` had been added as a broken submodule (it had its own nested `.git`), so its files never reached GitHub. The nested `.git` was removed and the real files were added. |
 | `f3ac05b` | Merged PR #1 (`asif-siddki` into `main`). |
+| `5897a57` | Admin panel, "Our Tie-ups" page removed, Windows `dev` script fix, this handover file. Merged through PR #2 (`16da9b3`). |
+| `c830e2b` | Asif: "Menu pages". New **Reserve the Villa** page at `/product/hoc-booking` and a booking menu (`components/BookingMenu.tsx`); Splash & Relax moved under it in the header. Merged through PR #3 (`0e68f77`). |
 
 ---
 
@@ -53,6 +55,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | `/gallery` | `app/(site)/gallery/page.tsx` | Masonry photo gallery with a lightbox |
 | `/amenities` | `app/(site)/amenities/page.tsx` | Pool, garden, dance floor, bar, cinema, game zone, gym, bedrooms |
 | `/splash-relax` | `app/(site)/splash-relax/page.tsx` | The 4 Splash & Relax (Aqua Party) packages with prices, plus an enquiry form |
+| `/product/hoc-booking` | `app/(site)/product/hoc-booking/page.tsx` | Reserve the Villa: Lawn, Premium and Entire House party packages, plus an enquiry form. Added by Asif. **Its prices are still written in the page file, not in the admin** |
 | `/contact` | `app/(site)/contact/page.tsx` | Contact details, map, enquiry form |
 | `/rules-regulations` | `app/(site)/rules-regulations/page.tsx` | Policy page |
 | `/privacy-policy` | `app/(site)/privacy-policy/page.tsx` | Policy page |
@@ -60,7 +63,7 @@ A new website for **House of Classic**, a luxury party villa in Jaipur (C-9, Pra
 | 404 | `app/not-found.tsx` | Custom "page not found" page |
 | `/admin` | `app/admin/page.tsx` | Password-protected content editor (section 6). Not linked from the site, blocked in `robots.txt` |
 
-The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exists so `app/(site)/layout.tsx` can give the public pages their header, footer and effects, while `/admin` gets a plain page.
+The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exists so `app/(site)/layout.tsx` can give the public pages their header and footer, while `/admin` gets a plain page.
 
 ### Features
 
@@ -73,26 +76,66 @@ The `(site)` folder is a Next.js route group: it doesn't appear in URLs. It exis
   - Page titles and descriptions, plus Open Graph images (`app/layout.tsx`).
   - `LodgingBusiness` structured data (JSON-LD) with the address, phone and location.
   - `sitemap.xml` (`app/sitemap.ts`) and `robots.txt` (`app/robots.ts`).
-  - **Redirects** from old WordPress URLs (`next.config.ts`): `/product/hoc-booking` goes to `/contact`, and `/elementor-280` goes to `/`. The removed `/our-tie-ups` page also redirects to `/`.
+  - **Redirects** from old WordPress URLs (`next.config.ts`): `/elementor-280` goes to `/`. (The old `/product/hoc-booking` redirect was removed on 28 Oct 2026, because that address is now the real Reserve the Villa page.) The removed `/our-tie-ups` page also redirects to `/`.
 - **Policy text** was copied from the old site into `data/legal.json` and is shown through `components/LegalPage.tsx`.
 - **Photos** were converted to `.webp` in `public/images/` (about 68 files).
 - **Splash & Relax prices** were typed in from the Aqua Party rate chart (`rates` in `data/content.json`): Rs 15,000, Rs 18,000, Rs 25,000 and Rs 30,000, plus a Rs 10,000 security deposit.
+
+### Bolder design, Phase 1 (inspired by slice.bank.in)
+
+Techniques adapted from the Slice bank home page, keeping our own fonts and theme colours:
+
+- **Big, tight headings:**
+  - Two classes in `app/globals.css`: `display-xl` for page titles (about 3rem on phones up to 6.5rem) and `display-lg` for section headings (2.5rem up to 5rem).
+  - Used on the home page and the Splash & Relax page.
+  - The map card heading on the home page only got a smaller bump, because the card is half the page wide.
+- **Full-width home banner** (changed 28 Oct 2026 at the owner's request):
+  - The home banner is now styled like the Gallery page slideshow. The slideshow photos fill the whole banner behind a wine gradient, and the heading, text, buttons and photo tiles sit on top.
+  - Thumbnails sit on the right (wide screens) and a gold progress bar runs along the bottom. The caption, arrows, pause button and dots were removed at the owner's request. Instead, the slideshow pauses while the mouse is over the banner or keyboard focus is inside it.
+  - Code: `components/HeroSlideshow.tsx`, which now takes the banner content as children. Photos and captions are still edited in the admin under **Photos > Home page slideshow**.
+- **Photo tiles in the home banner:**
+  - Three clickable photo tiles under the banner buttons: Aqua Party, Reserve the Villa, Gallery. On phones they scroll sideways.
+  - Content is in `pages.home.tiles` in `data/content.json`. Admin: **Page text > Home page: photo tiles in the banner** (title, line underneath, photo, which page it opens).
+  - In the line underneath, `{fromPrice}` shows the lowest package price.
+- **Frosted-glass package cards on Splash & Relax:**
+  - The banner and the package cards now share one full-width pool photo (`pages.splash.heroImage`).
+  - The cards use the `.glass` class in `app/globals.css`, which is built from the theme's cream colour. The recommended package keeps a gold border and darker glass.
+  - The comparison table and "Before you book" stay below on a light background.
+- **Checked** (28 Oct 2026) with screenshots at 360px and 1440px wide, in Royal Wine, Rajwada Blue, Emerald Garden and Midnight Minimal. Not checked: Desert Sandstone, and real phones.
+### Bolder design, Phase 2 (28 Oct 2026)
+
+- **Smoother rise-in:**
+  - The existing reveal effect (`components/ScrollReveals.tsx` plus the `[data-reveal-state]` rules in `app/globals.css`) is now longer and softer, and headings rise further (48px).
+  - Items that come into view together (a row of cards) arrive about 90ms apart, using the `--reveal-delay` CSS variable.
+  - Still switched off for visitors who prefer reduced motion.
+- **Amenity photo panels** (`app/(site)/amenities/page.tsx`):
+  - Each amenity is a large photo panel (at least 80% of the screen height) with a frosted-glass text card. The panels scroll normally, one after another.
+  - A pinned, overlapping "deck of cards" version, where each panel stayed put while the next slid over it, was tried and **removed on 28 Oct 2026 at the owner's request**: the next panel covered the text card while scrolling. Don't bring it back without asking.
+  - An amenity without a photo shows a gradient in the theme's colours.
+- **Essentials strip** (home page, after the packages teaser):
+  - Four short facts under the heading "The essentials, upfront."
+  - Every fact is reworded from text already on the site (fixed package charge, refundable deposit, "Food is allowed", same-day WhatsApp replies). Nothing new is claimed.
+  - **The owner should still review it.** Admin: **Page text > Home page: essentials strip**. Use `{fromPrice}` and `{deposit}` for live prices.
+  - We avoided the heading "No fine print", because the Splash & Relax page asks guests to confirm "applicable terms" before booking.
+- **Closing call to action** (end of the home page):
+  - "Your celebration starts here." over a full-width photo, with a WhatsApp button (message pre-filled) and a call button.
+  - Admin: **Page text > Home page: closing call to action** (heading, paragraph, background photo).
+- **Checked** with screenshots at 360px and 1440px wide, in Royal Wine, Rajwada Blue and Desert Sandstone. The amenity panels were re-checked at 1366×768 and 360px after the overlap was removed. Not checked on a real phone, and the new admin sections were not opened in a browser.
 
 ### Testing-only tools (temporary, must be removed before launch)
 
 These let the client compare looks live in the browser. A floating panel on every page switches between them.
 
 - **Colour themes** (`lib/themes.ts`): Royal Wine (the default), Rajwada Blue, Desert Sandstone, Emerald Garden, Midnight Minimal.
-- **Motion effects** (`lib/effects.ts`, `components/EffectsLayer.tsx`): None, Champagne Glow (the default), Starlit Evening, Poolside Ripples, Golden Celebration, Silk & Light.
+- **Motion effects:** removed on 12 Nov 2026 at the owner's request. There is no background animation and no click, cursor or drag effect. Don't add them back.
 - The panel itself: `components/PreviewControls.tsx`.
 
-**Once the client picks a theme and an effect:**
+**Once the client picks a theme:**
 
 1. Hardcode the chosen theme as the default.
 2. Remove `PreviewControls` from `app/(site)/layout.tsx`, and the `themeBootScript` from `app/layout.tsx`.
-3. Remove `EffectsLayer` too if "None" is chosen.
 
-The `TESTING ONLY` comment in `app/layout.tsx` marks this code. `EffectsLayer` is in `app/(site)/layout.tsx`.
+The `TESTING ONLY` comment in `app/layout.tsx` marks this code.
 
 ---
 
@@ -211,6 +254,9 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 - [x] Password-protected `/admin` page for rates, packages, page text, amenities, photos, business details and policies.
 - [ ] Set `ADMIN_PASSWORD` and `GITHUB_TOKEN` on Vercel, then test a save on the live site.
 - [ ] Click through every tab in a real browser, on a computer and on a phone.
+- [ ] Move the **Reserve the Villa** prices (Lawn Party ₹20,000, Premium ₹30,000, Entire House ₹40,000) from `app/(site)/product/hoc-booking/page.tsx` into `data/content.json`, so staff can change them in the admin like the Splash & Relax rates.
+  - Since 29 Oct 2026 that page also has a "Compare lawn & party packages" table above "Reserve the villa", open by default. It copies the owner's rate chart (`HOC - Lawn Area_R2_12082026.pdf`).
+  - The table reads the same `parties` list as the cards, so the prices only need changing in one place, but that place is still the code.
 - [ ] Later, if needed: let staff edit the small labels and button texts, and the photo descriptions (alt text) used by screen readers and Google.
 
 **2. Connect with Airbnb and MakeMyTrip**
@@ -241,13 +287,27 @@ On Vercel, set these in **Project > Settings > Environment Variables**, then red
 - [ ] Decide on a nightly rate. Note: `nightlyRate` exists in `data/content.json` but **no page shows it yet**, so the admin page doesn't offer it. A page would need to display it first.
 - [ ] **Check the map coordinates** (admin: Business details). The current 26.9124, 75.7873 is only approximate. Confirm it on Google Maps.
 - [ ] Have the privacy, cancellation and rules policies reviewed. They were copied from the old site.
-- [ ] Add real customer reviews. The old "Lorem ipsum" testimonial was removed.
+- [x] Guest reviews section on the home page (28 Oct 2026):
+  - Shows the real Airbnb scores: 4.87 from 15 reviews, plus the six category scores.
+  - Layout (from the owner's mockup, in our theme colours): a framed rounded card.
+    - Left: the rating with stars filled to the exact score.
+    - Right: "Detailed ratings" with an icon per category (`components/RatingIcon.tsx`, chosen by category name; unknown names get a star).
+    - The slide-to-open controls alternate sides: the first starts on the left and slides right, the second starts on the right and slides left.
+  - Underneath are two stacked **"slide to open"** controls (`components/SlideToOpen.tsx`), one for Airbnb (https://www.airbnb.co.in/rooms/809803371091618766) and one for MakeMyTrip (https://www.makemytrip.com/hotels/house_of_classic_jaipur-details-jaipur.html).
+    - At the owner's request, a click or tap does nothing. The visitor drags the gold handle at least 85% of the way, and the site opens in a new tab.
+    - Keyboard users can't drag, so they use the arrow keys, or Enter to open.
+    - Sites and links are edited in the admin under **Booking sites** in the guest reviews section.
+    - Tested in headless Edge with real mouse events: a click opens nothing, a 40% drag springs back, a full drag opens each site, and Enter works.
+    - The MakeMyTrip page blocks automated visitors, so its content couldn't be checked; confirm the link by hand.
+  - Admin: **Page text > Home page: guest reviews**. The flow was tested end to end in a browser: sign in, add a review, save, and it appears on the home page.
+- [ ] Paste the actual review texts into that admin section. Airbnb loads review texts with JavaScript, so they couldn't be copied automatically; copy them from the Airbnb host dashboard **word for word** with the guest's first name and month. The quote cards stay hidden until at least one is added.
+- [ ] Update the scores and the "Last checked" month now and then, as new Airbnb reviews come in.
 - [ ] The "Indoor Bar Area" amenity has no photo yet (admin: Amenities).
 - [ ] Recheck the Splash & Relax prices against the latest rate chart.
 
 ### Design
 
-- [ ] Client to pick the final colour theme and motion effect.
+- [ ] Client to pick the final colour theme.
 - [ ] Then remove the testing-only preview panel (see section 3).
 
 ### Technical

@@ -16,6 +16,15 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "policies", label: "Policies" },
 ];
 
+// Pages a home banner tile can open.
+const tileLinks = [
+  { value: "/splash-relax", label: "Aqua Party (Splash & Relax)" },
+  { value: "/product/hoc-booking", label: "Reserve the Villa" },
+  { value: "/gallery", label: "Gallery" },
+  { value: "/amenities", label: "Amenities" },
+  { value: "/contact", label: "Contact" },
+];
+
 const policyNames: { key: keyof Legal; label: string }[] = [
   { key: "rules", label: "House Rules & Regulations" },
   { key: "cancellation", label: "Cancellation & Refund Policy" },
@@ -221,6 +230,26 @@ export default function AdminEditor({ initialContent, initialLegal, initialImage
               <StringList label="Highlights strip" items={home.highlights} onChange={(v) => edit((d) => { d.pages.home.highlights = v; })} addLabel="Add highlight" />
             </Section>
 
+            <Section title="Home page: photo tiles in the banner" hint="Clickable photo tiles under the banner buttons. Three fit best.">
+              <List
+                items={home.tiles}
+                onChange={(v) => edit((d) => { d.pages.home.tiles = v; })}
+                addLabel="Add tile"
+                itemLabel={(t, i) => `${i + 1}. ${t.label || "New tile"}`}
+                makeNew={() => ({ label: "New tile", text: "", image: images[0] ?? "", href: "/contact" })}
+                renderItem={(t, update) => (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <ImagePick label="Photo" value={t.image} images={images} onChange={(image) => update({ ...t, image })} />
+                    <div className="space-y-3">
+                      <Text label="Title" value={t.label} onChange={(label) => update({ ...t, label })} />
+                      <Text label="Line underneath" value={t.text} onChange={(text) => update({ ...t, text })} hint="{fromPrice} shows the lowest package price." />
+                      <Select label="Opens page" value={t.href} onChange={(href) => update({ ...t, href })} options={tileLinks} />
+                    </div>
+                  </div>
+                )}
+              />
+            </Section>
+
             <Section title="Home page: scrolling event band">
               <StringList label="Event types" items={content.eventTypes} onChange={(v) => edit((d) => { d.eventTypes = v; })} addLabel="Add event type" />
             </Section>
@@ -259,6 +288,87 @@ export default function AdminEditor({ initialContent, initialLegal, initialImage
               />
               <Text label="Gallery heading" value={home.galleryHeading} onChange={(v) => edit((d) => { d.pages.home.galleryHeading = v; })} />
               <Text label="Map section heading" value={home.ctaHeading} onChange={(v) => edit((d) => { d.pages.home.ctaHeading = v; })} />
+            </Section>
+
+            <Section title="Home page: essentials strip" hint="Short facts shown after the packages. Only list things the owner has confirmed. {fromPrice} shows the lowest package price, {deposit} the security deposit.">
+              <Text label="Heading" value={home.essentials.heading} onChange={(v) => edit((d) => { d.pages.home.essentials.heading = v; })} />
+              <List
+                items={home.essentials.items}
+                onChange={(v) => edit((d) => { d.pages.home.essentials.items = v; })}
+                addLabel="Add fact"
+                itemLabel={(item, i) => `${i + 1}. ${item.title || "New fact"}`}
+                makeNew={() => ({ title: "New fact", text: "" })}
+                renderItem={(item, update) => (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Text label="Title" value={item.title} onChange={(title) => update({ ...item, title })} />
+                    <Text label="Text" value={item.text} onChange={(text) => update({ ...item, text })} />
+                  </div>
+                )}
+              />
+            </Section>
+
+            <Section title="Home page: closing call to action" hint="The large photo section at the very end of the home page, with the WhatsApp button.">
+              <Text label="Heading" value={home.closing.heading} onChange={(v) => edit((d) => { d.pages.home.closing.heading = v; })} />
+              <Text label="Paragraph" multiline value={home.closing.text} onChange={(v) => edit((d) => { d.pages.home.closing.text = v; })} />
+              <ImagePick label="Background photo" value={home.closing.image} images={images} onChange={(v) => edit((d) => { d.pages.home.closing.image = v; })} />
+            </Section>
+
+            <Section title="Home page: guest reviews" hint="Copy these from the Airbnb listing. Paste reviews word for word, never reworded, with the guest's first name as Airbnb shows it.">
+              <Text label="Heading" value={home.reviews.heading} onChange={(v) => edit((d) => { d.pages.home.reviews.heading = v; })} />
+              <div className="grid gap-3 sm:grid-cols-3">
+                <Num label="Overall rating (out of 5)" step={0.01} value={home.reviews.rating} onChange={(v) => edit((d) => { d.pages.home.reviews.rating = v; })} />
+                <Num label="Number of reviews" value={home.reviews.count} onChange={(v) => edit((d) => { d.pages.home.reviews.count = v; })} />
+                <Text label="Last checked" value={home.reviews.checked} onChange={(v) => edit((d) => { d.pages.home.reviews.checked = v; })} hint="For example: October 2026" />
+              </div>
+              <Text label="Where the scores come from" value={home.reviews.source} onChange={(v) => edit((d) => { d.pages.home.reviews.source = v; })} hint="Shown as “from 15 reviews on Airbnb”." />
+              <div>
+                <p className="mb-2 text-sm font-bold">Booking sites (each becomes a “slide to open” control, in this order)</p>
+                <List
+                  items={home.reviews.links}
+                  onChange={(v) => edit((d) => { d.pages.home.reviews.links = v; })}
+                  addLabel="Add booking site"
+                  itemLabel={(l, i) => `${i + 1}. ${l.site || "New site"}`}
+                  makeNew={() => ({ site: "", url: "https://" })}
+                  renderItem={(l, update) => (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <Text label="Site name" value={l.site} onChange={(site) => update({ ...l, site })} hint="For example: Airbnb" />
+                      <Text label="Link to your listing" value={l.url} onChange={(url) => update({ ...l, url })} />
+                    </div>
+                  )}
+                />
+              </div>
+              <List
+                items={home.reviews.categories}
+                onChange={(v) => edit((d) => { d.pages.home.reviews.categories = v; })}
+                addLabel="Add score"
+                itemLabel={(cat) => `${cat.label} ${cat.score}`}
+                makeNew={() => ({ label: "New score", score: 5 })}
+                renderItem={(cat, update) => (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Text label="Name" value={cat.label} onChange={(label) => update({ ...cat, label })} />
+                    <Num label="Score (out of 5)" step={0.1} value={cat.score} onChange={(score) => update({ ...cat, score })} />
+                  </div>
+                )}
+              />
+              <div>
+                <p className="mb-2 text-sm font-bold">Review quotes (shown as cards; the section hides them while the list is empty)</p>
+                <List
+                  items={home.reviews.quotes}
+                  onChange={(v) => edit((d) => { d.pages.home.reviews.quotes = v; })}
+                  addLabel="Add review"
+                  itemLabel={(q, i) => `${i + 1}. ${q.name || "New review"}`}
+                  makeNew={() => ({ name: "", date: "", text: "" })}
+                  renderItem={(q, update) => (
+                    <>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <Text label="Guest's first name" value={q.name} onChange={(name) => update({ ...q, name })} />
+                        <Text label="Month and year" value={q.date} onChange={(date) => update({ ...q, date })} hint="For example: March 2026" />
+                      </div>
+                      <Text label="Review text (exactly as written)" multiline rows={4} value={q.text} onChange={(text) => update({ ...q, text })} />
+                    </>
+                  )}
+                />
+              </div>
             </Section>
 
             <Section title="Amenities page">

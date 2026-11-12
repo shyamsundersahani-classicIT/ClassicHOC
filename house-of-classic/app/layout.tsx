@@ -6,8 +6,7 @@ import "./globals.css";
 
 // Applies a saved theme choice before the page paints, so switching themes
 // on one page doesn't flash the default theme on the next navigation.
-// TESTING ONLY: remove this script, PreviewControls and EffectsLayer once a
-// theme and effect are kept for good.
+// TESTING ONLY: remove this script and PreviewControls once a theme is kept.
 const themeBootScript = `(function(){try{var t=localStorage.getItem("hoc-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
 
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-// The public site's header, footer and effects are in app/(site)/layout.tsx,
+// The public site's header and footer are in app/(site)/layout.tsx,
 // so the admin page (app/admin) gets a plain page.
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

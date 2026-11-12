@@ -69,3 +69,6 @@ Installation and font downloads during the build may need internet access.
 - Contact: http://localhost:3000/contact
 
 Business and package details are in `lib/site.ts`.
+for aman sir 
+cd "C:\Users\78GAman\Desktop\HOC\ClassicHOC\house-of-classic"
+npm.cmd run dev

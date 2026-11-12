@@ -46,5 +46,5 @@ Upload them on the admin page (Photos tab), or drop `.webp`/`.jpg`/`.png` files 
 - [ ] Fill in social links on the admin page (Business details)
 - [ ] Confirm the map location is the correct property
 - [ ] Review the privacy and cancellation policies
-- [ ] Add real customer reviews (the old "Lorem ipsum" testimonial was removed)
+- [ ] Paste real Airbnb review texts into the admin (Page text > Home page: guest reviews). The scores are already shown
 - [ ] Test the WhatsApp enquiry button on a phone
