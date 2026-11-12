@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import template from "@/data/content.json";
 import legalTemplate from "@/data/legal.json";
-import { checkPassword, endSession, requireAdmin, startSession } from "@/lib/admin/auth";
+import { checkPassword, clearFailedLogins, clientIp, endSession, loginBlocked, recordFailedLogin, requireAdmin, startSession } from "@/lib/admin/auth";
 import { listFiles, readText, removeFile, saveFile, storageMode } from "@/lib/admin/store";
 import { IMAGE_FILE } from "@/lib/image-path";
 import type { Content } from "@/lib/site";
@@ -92,6 +92,14 @@ async function missingImage(c: Content): Promise<string | null> {
   return used.find((name) => !files.has(name)) ?? null;
 }
 
+// Recognises a photo by its first bytes (its "signature").
+function imageType(b: Buffer): "webp" | "jpg" | "png" | null {
+  if (b.length >= 12 && b.toString("ascii", 0, 4) === "RIFF" && b.toString("ascii", 8, 12) === "WEBP") return "webp";
+  if (b.length >= 3 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return "jpg";
+  if (b.length >= 8 && b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return "png";
+  return null;
+}
+
 async function guarded(work: () => Promise<Result>): Promise<Result> {
   try {
     await requireAdmin();
@@ -104,10 +112,14 @@ async function guarded(work: () => Promise<Result>): Promise<Result> {
 const refreshSite = () => revalidatePath("/", "layout");
 
 export async function login(_: Result | null, form: FormData): Promise<Result> {
-  if (!checkPassword(String(form.get("password") ?? ""))) {
+  const ip = await clientIp();
+  if (loginBlocked(ip)) return { ok: false, message: "Too many wrong passwords. Try again in 15 minutes." };
+  if (!checkPassword(String(form.get("password") ?? "").slice(0, 200))) {
+    recordFailedLogin(ip);
     await new Promise((r) => setTimeout(r, 1000)); // slows down password guessing
     return { ok: false, message: "Wrong password." };
   }
+  clearFailedLogins(ip);
   await startSession();
   redirect("/admin");
 }
@@ -143,16 +155,19 @@ export async function uploadImage(form: FormData): Promise<Result> {
   return guarded(async () => {
     const file = form.get("file");
     if (!(file instanceof Blob)) return { ok: false, message: "No file was received." };
-    const ext = { "image/webp": "webp", "image/jpeg": "jpg", "image/png": "png" }[file.type];
-    if (!ext) return { ok: false, message: "Only WebP, JPG and PNG photos can be uploaded." };
     if (file.size > MAX_IMAGE_BYTES) return { ok: false, message: "That photo is over 4 MB." };
+    const bytes = Buffer.from(await file.arrayBuffer());
+    // The type comes from the file's own contents, not its name or the browser's
+    // label, so only real photos are ever stored (no scripts or HTML renamed .jpg).
+    const ext = imageType(bytes);
+    if (!ext) return { ok: false, message: "Only WebP, JPG and PNG photos can be uploaded." };
 
     const base = String(form.get("name") ?? "photo").toLowerCase().replace(/\.[^.]+$/, "").replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50) || "photo";
     const existing = new Set(await listFiles(IMAGE_DIR));
     let name = `${base}.${ext}`;
     for (let n = 2; existing.has(name); n++) name = `${base}-${n}.${ext}`;
 
-    await saveFile(`${IMAGE_DIR}/${name}`, Buffer.from(await file.arrayBuffer()), `Admin: add photo ${name}`);
+    await saveFile(`${IMAGE_DIR}/${name}`, bytes, `Admin: add photo ${name}`);
     refreshSite();
     return { ok: true, message: name };
   });

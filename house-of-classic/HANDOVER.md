@@ -208,12 +208,23 @@ A password-protected editor with six tabs: **Rates & packages**, **Page text**, 
 
 | Environment variable | Needed | What it is |
 |---|---|---|
-| `ADMIN_PASSWORD` | Always | The admin password. Without it, `/admin` shows "Admin is switched off". Changing it signs everyone out. |
+| `ADMIN_PASSWORD` | Always | The admin password. Without it, `/admin` shows "Admin is switched off". Changing it signs everyone out. **On the live site it must be at least 16 characters**, or the admin stays switched off. |
 | `GITHUB_TOKEN` | Live site only | A GitHub fine-grained personal access token with **Contents: Read and write** on the `ClassicHOC` repo. |
 | `GITHUB_BRANCH` | Optional | Branch to save to. Default `main`, which should be the branch Vercel deploys. |
 | `GITHUB_REPO` / `GITHUB_DIR` | Optional | Default `shyamsundersahani-classicIT/ClassicHOC` and `house-of-classic`. |
 
 On Vercel, set these in **Project > Settings > Environment Variables**, then redeploy.
+
+### Security (checked 12 Nov 2026)
+
+- **Who can get in:** only someone who knows `ADMIN_PASSWORD`. Without signing in, `/admin` shows only the sign-in box, and every save, upload and delete checks the login again on the server, so they can't be called directly.
+- **Password guessing:** 5 wrong passwords from one IP address, or 100 in total across the site, lock sign-in for 15 minutes. Each wrong try also waits 1 second. The live site refuses passwords under 16 characters.
+- **Session:** a signed, HTTP-only, `SameSite=Strict` cookie, `Secure` on the live site, valid for 7 days. To sign everyone out (for example, if a laptop is lost), change `ADMIN_PASSWORD` and redeploy.
+- **SQL injection:** not possible, because there is no database. Content is a JSON file, checked against a fixed shape before saving, and React escapes all text when showing it.
+- **Malware uploads:** only signed-in admins can upload. A file is accepted only if its actual bytes are a real WebP, JPG or PNG (the name and browser label are ignored), it is under 4 MB, and it gets a new safe file name. SVG, HTML and scripts are refused.
+- **Browser protections** (in `next.config.ts`): the site can't be shown inside another site's frame, files aren't type-guessed, HTTPS is enforced, the `X-Powered-By` header is off, and `/admin` is never cached or indexed.
+- **DoS / overload:** public pages are static files, so they are cheap to serve. Hosting-level protection (Vercel's built-in DDoS mitigation, or Cloudflare in front of other hosts) handles floods; the app can't stop them on its own.
+- **Dependencies:** Next.js was upgraded from 16.3.8 to 16.4.6 to fix critical security advisories. Run `npm audit --omit=dev` before each release; it should report 0 vulnerabilities.
 
 ### How saving works
 

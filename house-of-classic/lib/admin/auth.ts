@@ -1,6 +1,6 @@
 import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 // One shared admin password, set as the ADMIN_PASSWORD environment variable
 // (in .env.local for local work, in Vercel > Settings > Environment Variables
@@ -8,7 +8,45 @@ import { cookies } from "next/headers";
 const COOKIE = "hoc_admin";
 const SESSION_DAYS = 7;
 
-export const adminPassword = () => process.env.ADMIN_PASSWORD ?? "";
+// The live site refuses short passwords, so guessing is never practical.
+const MIN_LIVE_PASSWORD = 16;
+const configuredPassword = () => process.env.ADMIN_PASSWORD ?? "";
+export const passwordTooWeak = () =>
+  process.env.NODE_ENV === "production" && configuredPassword() !== "" && configuredPassword().length < MIN_LIVE_PASSWORD;
+export const adminPassword = () => (passwordTooWeak() ? "" : configuredPassword());
+
+// Failed sign-ins are limited per visitor (IP address) and across the whole
+// site, which stops password guessing. The counts live in server memory, so a
+// restart clears them; on Vercel each server instance keeps its own count.
+const WINDOW_MS = 15 * 60 * 1000;
+const MAX_FAILS_PER_IP = 5;
+const MAX_FAILS_TOTAL = 100;
+const fails = new Map<string, { count: number; since: number }>();
+let total = { count: 0, since: 0 };
+
+const fresh = (entry: { count: number; since: number } | undefined, now: number) =>
+  entry && now - entry.since < WINDOW_MS ? entry : { count: 0, since: now };
+
+export async function clientIp() {
+  const h = await headers();
+  return h.get("x-forwarded-for")?.split(",")[0].trim() || h.get("x-real-ip") || "unknown";
+}
+
+export function loginBlocked(ip: string) {
+  const now = Date.now();
+  return fresh(fails.get(ip), now).count >= MAX_FAILS_PER_IP || fresh(total, now).count >= MAX_FAILS_TOTAL;
+}
+
+export function recordFailedLogin(ip: string) {
+  const now = Date.now();
+  if (fails.size > 10_000) fails.clear(); // never let the list grow without limit
+  const entry = fresh(fails.get(ip), now);
+  fails.set(ip, { count: entry.count + 1, since: entry.since });
+  total = fresh(total, now);
+  total.count++;
+}
+
+export const clearFailedLogins = (ip: string) => fails.delete(ip);
 
 const sign = (value: string) => createHmac("sha256", `hoc-admin:${adminPassword()}`).update(value).digest("hex");
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { connection } from "next/server";
 import AdminEditor from "@/components/admin/AdminEditor";
 import LoginForm from "@/components/admin/LoginForm";
-import { adminPassword, isAdmin } from "@/lib/admin/auth";
+import { adminPassword, isAdmin, passwordTooWeak } from "@/lib/admin/auth";
 import { listFiles, readText, storageMode } from "@/lib/admin/store";
 import { IMAGE_FILE } from "@/lib/image-path";
 import type { Content } from "@/lib/site";
@@ -13,6 +13,17 @@ export const metadata: Metadata = { title: "Admin", robots: { index: false, foll
 export default async function AdminPage() {
   // Render on every request: the password and login cookie are only known then.
   await connection();
+  if (passwordTooWeak()) {
+    return (
+      <AdminShell>
+        <h1 className="font-serif text-3xl">Admin is switched off</h1>
+        <p className="mt-4 text-muted">
+          The <code className="rounded bg-blush px-1">ADMIN_PASSWORD</code> on the live site is too short. Use at least 16
+          characters, then redeploy. See HANDOVER.md, section &ldquo;Admin page&rdquo;.
+        </p>
+      </AdminShell>
+    );
+  }
   if (!adminPassword()) {
     return (
       <AdminShell>

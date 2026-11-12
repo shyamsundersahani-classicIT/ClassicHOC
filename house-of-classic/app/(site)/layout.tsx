@@ -34,7 +34,8 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // "<" is escaped so admin-edited text can never close this script tag early.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Header />
       <main className="flex-1">{children}</main>
