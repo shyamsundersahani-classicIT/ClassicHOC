@@ -24,8 +24,8 @@ export default function BookingMenu({ mobile = false, onNavigate }: { mobile?: b
         ref.current.querySelector("summary")?.focus();
       }
     }}>
-      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-full bg-gold px-5 py-3 text-sm font-bold text-ink hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold [&::-webkit-details-marker]:hidden">
-        Book Your Stay <span aria-hidden="true" className="transition group-open:rotate-180">⌄</span>
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gold px-5 py-3 text-sm font-bold text-ink hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold [&::-webkit-details-marker]:hidden">
+        Book Your Stay <svg aria-hidden="true" viewBox="0 0 12 12" className="h-3 w-3 shrink-0 transition group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4l4 4 4-4" /></svg>
       </summary>
       <nav aria-label="Book Your Stay" className={mobile ? "mt-3 rounded-xl bg-cream p-2 text-ink" : "absolute right-0 mt-3 w-72 rounded-xl border border-ink/10 bg-cream p-2 text-ink shadow-xl"}>
         {bookingLinks.map((item) => (
