@@ -5,7 +5,7 @@ import { defaultThemeId, themes } from "@/lib/themes";
 
 const THEME_KEY = "hoc-theme";
 
-// Floating, testing-only widget: lets you flip the whole site's colour theme
+// Floating theme picker: lets visitors flip the whole site's colour theme
 // live, on every page, without touching any code. Pick a favourite, then tell
 // Claude which id to keep — it will hardcode it and remove this panel.
 // The background and click effects were removed at the owner's request.
@@ -38,8 +38,8 @@ export default function PreviewControls() {
     <div data-preview-controls className="fixed bottom-5 right-5 z-[80] flex flex-col items-end gap-3 print:hidden">
       {open && (
         <div className="max-h-[calc(100dvh-7rem)] w-80 max-w-[calc(100vw-2.5rem)] overflow-y-auto overscroll-contain rounded-2xl border border-gold/30 bg-cream p-4 text-ink shadow-2xl animate-[slideInLeft_0.25s_ease-out_forwards]">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-rose">Testing mode · Colour</p>
-          <p className="mt-1 text-sm text-muted">Pick a theme to preview it on every page. Nothing is saved for visitors — just for this browser.</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-rose">Pick your theme</p>
+          <p className="mt-1 text-sm text-muted">Choose a colour palette and change the vibe of the whole site.</p>
           <div className="mt-4 space-y-2">
             {themes.map((t) => (
               <button
@@ -64,7 +64,7 @@ export default function PreviewControls() {
             ))}
           </div>
           <p className="mt-3 text-xs text-muted">
-            Your colour preference is remembered on this browser.
+            Your choice is remembered on this device.
           </p>
         </div>
       )}
